@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown Previewer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2563eb;
+    }
+
+    #container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    textarea {
+      width: 45%;
+      height: 400px;
+      padding: 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+
+    #preview {
+      width: 45%;
+      min-height: 400px;
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 768px) {
+      textarea, #preview {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Markdown Previewer</h1>
+
+  <div id="container">
+    <textarea id="editor" oninput="updatePreview()"></textarea>
+    <div id="preview" class="markdown-body"></div>
+  </div>
+
+  <script>
+    // Default markdown text (User Story #5)
+    const defaultText = `# Welcome to my Markdown Previewer!
+
+## This is a sub-heading (H2)
+
+Here is a [link to FreeCodeCamp](https://www.freecodecamp.org/)
+
+Inline code: \`<div></div>\`
+
+Code block:
+\`\`\`
+function greet() {
+  console.log('Hello world!');
+}
+\`\`\`
+
+- List item 1
+- List item 2
+- List item 3
+
+> This is a blockquote!
+
+**This text is bold!**
+
+![FreeCodeCamp Logo](https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg)
+`;
+
+    const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview');
+
+    // Initialize editor and preview (User Story #6)
+    editor.value = defaultText;
+    preview.innerHTML = marked.parse(defaultText);
+
+    // Update preview as user types (User Stories #3 & #4)
+    function updatePreview() {
+      const text = editor.value;
+      preview.innerHTML = marked.parse(text);
+    }
+  </script>
+
+</body>
+</html>
